@@ -1,0 +1,25 @@
+name: HTML5 checks
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reject legacy presentational markup
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          files = list(Path('.').rglob('*.html'))
+          assert files, 'No HTML files found'
+          bad_tags = re.compile(r'<\s*(font|center|frameset|frame|marquee)\b', re.I)
+          bad_attrs = re.compile(r'<[^>]+\s(background|bgcolor|text|link|vlink|align|valign)\s*=', re.I)
+          for path in files:
+              text = path.read_text(encoding='utf-8')
+              assert re.search(r'<!doctype\s+html>', text, re.I), f'{path}: missing HTML5 doctype'
+              assert re.search(r'<html[^>]+lang=', text, re.I), f'{path}: missing lang'
+              assert not bad_tags.search(text), f'{path}: legacy presentational tag found'
+              assert not bad_attrs.search(text), f'{path}: legacy presentational attribute found'
+          print(f'Validated {len(files)} HTML file(s)')
+          PY
