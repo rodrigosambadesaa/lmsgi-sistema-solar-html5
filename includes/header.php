@@ -36,10 +36,10 @@ $planets = [
     <nav class="site-nav" aria-label="Navegación principal">
         <a class="nav-home <?= $activePage === 'inicio' ? 'active' : '' ?>" href="principal.php">Inicio</a>
         <div class="planet-links">
-        <?php foreach ($planets as $planet): ?>
-            <a class="planet-link <?= $activePage === $planet['slug'] ? 'active' : '' ?>" href="<?= e($planet['slug']) ?>.php">
-                <img src="imagenes/<?= e($planet['image']) ?>" alt="" width="40" height="40" loading="lazy">
-                <span><?= e($planet['name']) ?></span>
+        <?php foreach ($planets as $navPlanet): ?>
+            <a class="planet-link <?= $activePage === $navPlanet['slug'] ? 'active' : '' ?>" href="<?= e($navPlanet['slug']) ?>.php">
+                <img src="imagenes/<?= e($navPlanet['image']) ?>" alt="" width="40" height="40" loading="lazy">
+                <span><?= e($navPlanet['name']) ?></span>
             </a>
         <?php endforeach; ?>
         </div>
