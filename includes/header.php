@@ -38,7 +38,7 @@ $planets = [
         <div class="planet-links">
         <?php foreach ($planets as $navPlanet): ?>
             <a class="planet-link <?= $activePage === $navPlanet['slug'] ? 'active' : '' ?>" href="<?= e($navPlanet['slug']) ?>.php">
-                <img src="imagenes/<?= e($navPlanet['image']) ?>" alt="" width="40" height="40" loading="lazy">
+                <img src="imagenes/<?= e($navPlanet['image']) ?>" alt="" width="40" height="40">
                 <span><?= e($navPlanet['name']) ?></span>
             </a>
         <?php endforeach; ?>
